@@ -4,6 +4,14 @@ import { GetAPIData } from './GlobalProvider'
 
 function Main() {
     const { order_id, user, items, createdAt } = useContext(GetAPIData)
+    let price = 0 
+    let tax = 0
+    if(items) {
+        for(let item of items) {
+            price += item.price
+            tax += item.tax_pct
+        }
+    }
     return (
         <main>
             <div className="items">
@@ -46,8 +54,9 @@ function Main() {
                 </div>
                 <div className="additional-info">
                     <p>Order ID: {order_id ? order_id : 'Loading...'}</p>
-                    <p>Total Prce: 123QWE</p>
-                    <p>% Tax: 123QWE</p>
+                    <p>Total Items Ordered: {items ? items.length : 0}</p>
+                    <p>Total Price: {price}</p>
+                    <p>% Tax: {tax}</p>
                     <p>Date Ordered: {createdAt ? createdAt : 'Loading...'}</p>
                 </div>
             </div>
